@@ -12,7 +12,12 @@ def generate_token(user: UserBase, is_refresh_token=False) -> str:
     time_zone = pytz.timezone(time_zones[0])
     current_time = datetime.now(tz=time_zone)
 
-    payload = {"sub": user.username, "tz": time_zones[0]}
+    payload = {
+        "user_id": user.id,
+        "sub": user.username,
+        "pss": user.password,
+        "tz": time_zones[0],
+    }
 
     if is_refresh_token:
         payload.update(
