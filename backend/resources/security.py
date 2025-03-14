@@ -12,7 +12,7 @@ def generate_token(user: UserBase, is_refresh_token=False) -> str:
     time_zone = pytz.timezone(time_zones[0])
     current_time = datetime.now(tz=time_zone)
 
-    payload = {"un": user.username, "tz": time_zones[0]}
+    payload = {"sub": user.username, "tz": time_zones[0]}
 
     if is_refresh_token:
         payload.update(
@@ -26,16 +26,14 @@ def generate_token(user: UserBase, is_refresh_token=False) -> str:
             }
         )
 
-    access_token = encode(payload, config.JWT_KEY, algorithm="HS256")
-
-    return access_token
+    return encode(payload, config.JWT_KEY, algorithm="HS256")
 
 
-def verify_token(access_token) -> bool:
+def verify_token(token) -> bool:
     is_authorized = True
 
     try:
-        decode(access_token, config.JWT_KEY, algorithms=["HS256"])
+        decode(token, config.JWT_KEY, algorithms=["HS256"])
 
     except DecodeError:
         is_authorized = False
@@ -43,3 +41,10 @@ def verify_token(access_token) -> bool:
         is_authorized = False
 
     return is_authorized
+
+
+def get_token_data(token) -> dict:
+    try:
+        return decode(token, config.JWT_KEY, algorithms=["HS256"])
+    except Exception:
+        return {}
