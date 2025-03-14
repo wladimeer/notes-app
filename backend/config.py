@@ -7,6 +7,7 @@ load_dotenv(find_dotenv())
 class TestingConfig:
     JWT_KEY = os.getenv("JWT_KEY")
     URL_DATABASE = os.getenv("URL_DATABASE")
+    SECURE = False
 
 
 environments = {"testing": TestingConfig}
