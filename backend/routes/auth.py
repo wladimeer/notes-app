@@ -66,8 +66,14 @@ async def login(user: UserBase, db: Session = Depends(get_db)):
             content={"message": constants.VERIFY_CREDENTIAL},
         )
 
-    access_token = generate_token(user)
-    refresh_token = generate_token(user, is_refresh_token=True)
+    new_user = UserBase(
+        password="",
+        username=user.username,
+        id=db_user.id,
+    )
+
+    access_token = generate_token(new_user)
+    refresh_token = generate_token(new_user, is_refresh_token=True)
 
     content = {
         "message": constants.USER_SUCCESSFULLY_LOGIN,

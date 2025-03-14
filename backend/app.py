@@ -35,9 +35,13 @@ async def before_request(request: Request, call_next):
                 if is_valid_refresh_token:
                     payload = get_token_data(refresh_token)
 
-                    user = UserBase(username=payload["sub"], password="")
+                    new_user = UserBase(
+                        id=payload["user_id"],
+                        username=payload["sub"],
+                        password="",
+                    )
 
-                    new_access_token = generate_token(user)
+                    new_access_token = generate_token(new_user)
                     response = await call_next(request)
 
                     response.set_cookie(
