@@ -12,21 +12,21 @@ NOTE_PREFIX = "/api/notes"
 NOTE_PATH = "/{id}"
 
 # User constants
-VERIFY_CREDENTIAL = "Verifica los datos ingresados"
-USER_REGISTERED = "Usuario registrado exitosamente"
-USER_ALREADY_REGISTERED = "El usuario ya está registrado"
-USER_SUCCESSFULLY_LOGIN = "Sesión iniciada correctamente"
+VERIFY_CREDENTIAL = "Por favor, verifica los datos que has ingresado"
+USER_REGISTERED = "¡Bienvenido! Tu cuenta ha sido creada con éxito"
+USER_ALREADY_REGISTERED = "Este usuario ya está registrado. Intenta con otro nombre"
+USER_SUCCESSFULLY_LOGIN = "¡Bienvenido de nuevo! Has iniciado sesión correctamente"
 
 # Note constants
-DATA_OBTAINED = "Datos obtenidos de manera exitosa"
-NOTE_REGISTERED = "Nota registrada exitosamente"
-NOTE_DOES_NOT_EXIST = "La nota no se encuentra registrada"
-NOTE_UPDATED = "Nota actualizada exitosamente"
-NOTE_DELETED = "Nota eliminada exitosamente"
+DATA_OBTAINED = "Los datos se han obtenido correctamente. ¡Todo listo!"
+NOTE_REGISTERED = "¡Éxito! Tu nota ha sido registrada correctamente"
+NOTE_DOES_NOT_EXIST = "Lo sentimos, no encontramos esa nota"
+NOTE_UPDATED = "¡Tu nota ha sido actualizada exitosamente!"
+NOTE_DELETED = "La nota ha sido eliminada con éxito"
 
 # Error constants
-EXCEPTION_MESSAGE = "Se produjo un error durante el proceso de solicitud"
-NOT_AUTHORIZED_MESSAGE = "No estás autorizado a utilizar este servicio"
+EXCEPTION_MESSAGE = "Algo salió mal. Intenta nuevamente en unos minutos"
+NOT_AUTHORIZED_MESSAGE = "No tienes permisos para acceder a este servicio"
 
 # Access keys
 ACCESS_TOKEN_KEY = "access_token"
