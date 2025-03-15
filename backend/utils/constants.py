@@ -23,6 +23,8 @@ NOTE_REGISTERED = "¡Éxito! Tu nota ha sido registrada correctamente"
 NOTE_DOES_NOT_EXIST = "Lo sentimos, no encontramos esa nota"
 NOTE_UPDATED = "¡Tu nota ha sido actualizada exitosamente!"
 NOTE_DELETED = "La nota ha sido eliminada con éxito"
+NOTE_UPDATE_CONCURRENCY_ERROR = "Hubo un problema al intentar actualizar la nota. Es posible que la nota haya sido modificada recientemente. Por favor, intenta nuevamente"
+NOTE_DELETE_CONCURRENCY_ERROR = "Hubo un problema al intentar eliminar la nota. Es posible que la nota ya haya sido eliminada. Intenta nuevamente"
 
 # Error constants
 EXCEPTION_MESSAGE = "Algo salió mal. Intenta nuevamente en unos minutos"

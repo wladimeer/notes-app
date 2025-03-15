@@ -8,6 +8,7 @@ from resources.security import get_token_data
 from datetime import datetime
 from services.note import get_notes_for_user, create_note_for_user, find_note_by_id
 from services.note import update_note_for_user, delete_note_for_user
+from sqlalchemy.exc import OperationalError
 import utils.constants as constants
 
 router = APIRouter(prefix=constants.NOTE_PREFIX, tags=[constants.NOTE_TAG])
@@ -108,6 +109,12 @@ async def update_note(
             content={"message": constants.NOTE_UPDATED},
         )
 
+    except OperationalError:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"message": constants.NOTE_UPDATE_CONCURRENCY_ERROR},
+        )
+
     except:
         db.rollback()
 
@@ -134,6 +141,12 @@ async def delete_note(request: Request, id: int, db: Session = Depends(get_db)):
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content={"message": constants.NOTE_DELETED},
+        )
+
+    except OperationalError:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"message": constants.NOTE_DELETE_CONCURRENCY_ERROR},
         )
 
     except:

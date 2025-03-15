@@ -72,7 +72,12 @@ def find_note_by_id(db: Session, user_id: int, note_id: int):
 
 
 def update_note_for_user(db: Session, user_id: int, note_id: int, note: NoteUpdate):
-    db_note = db.query(Note).filter(Note.user_id == user_id, Note.id == note_id).first()
+    db_note = (
+        db.query(Note)
+        .filter(Note.user_id == user_id, Note.id == note_id)
+        .with_for_update()
+        .first()
+    )
 
     if db_note is None:
         return None
@@ -93,7 +98,12 @@ def update_note_for_user(db: Session, user_id: int, note_id: int, note: NoteUpda
 
 
 def delete_note_for_user(db: Session, user_id: int, note_id: int):
-    db_note = db.query(Note).filter(Note.user_id == user_id, Note.id == note_id).first()
+    db_note = (
+        db.query(Note)
+        .filter(Note.user_id == user_id, Note.id == note_id)
+        .with_for_update()
+        .first()
+    )
 
     if db_note is None:
         return None
