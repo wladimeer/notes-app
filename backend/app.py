@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
+from routes.note import router as note_router
 from routes.auth import router as auth_router
 from database import init_db
 from config import config
@@ -70,6 +71,7 @@ async def before_request(request: Request, call_next):
     return await call_next(request)
 
 
+app.include_router(note_router)
 app.include_router(auth_router)
 
 
