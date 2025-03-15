@@ -6,6 +6,8 @@ from database import get_db
 from models.note import Note
 from resources.security import get_token_data
 from datetime import datetime
+from services.note import get_notes_for_user, create_note_for_user, find_note_by_id
+from services.note import update_note_for_user, delete_note_for_user
 import utils.constants as constants
 
 router = APIRouter(prefix=constants.NOTE_PREFIX, tags=[constants.NOTE_TAG])
@@ -17,27 +19,7 @@ async def get_notes(request: Request, db: Session = Depends(get_db)):
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
         payload = get_token_data(access_token)
 
-        db_note = db.query(Note).filter(Note.user_id == payload["user_id"]).all()
-
-        notes_data = [
-            {
-                **NoteCreate.from_orm(note).dict(),
-                "created_at": (
-                    note.created_at.strftime("%Y-%m-%d %H:%M:%S")
-                    if note.created_at
-                    else None
-                ),
-                "updated_at": (
-                    note.updated_at.strftime("%Y-%m-%d %H:%M:%S")
-                    if note.updated_at
-                    else None
-                ),
-            }
-            for note in db_note
-        ]
-
-        for note in notes_data:
-            note.pop("user_id", None)
+        notes_data = get_notes_for_user(db, payload["user_id"])
 
         content = {
             "message": constants.DATA_OBTAINED,
@@ -61,17 +43,7 @@ async def create_note(
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
         payload = get_token_data(access_token)
 
-        db_note = Note(
-            title=note.title,
-            content=note.content,
-            created_at=note.created_at,
-            updated_at=note.updated_at,
-            user_id=payload["user_id"],
-        )
-
-        db.add(db_note)
-        db.commit()
-        db.refresh(db_note)
+        create_note_for_user(db, note, payload["user_id"])
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -93,33 +65,13 @@ async def find_note(request: Request, id: int, db: Session = Depends(get_db)):
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
         payload = get_token_data(access_token)
 
-        db_note = (
-            db.query(Note)
-            .filter(Note.user_id == payload["user_id"], Note.id == id)
-            .first()
-        )
+        note_data = find_note_by_id(db, payload["user_id"], id)
 
-        if db_note is None:
+        if note_data is None:
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND,
                 content={"message": constants.NOTE_DOES_NOT_EXIST},
             )
-
-        note_data = {
-            **NoteCreate.from_orm(db_note).dict(),
-            "created_at": (
-                db_note.created_at.strftime("%Y-%m-%d %H:%M:%S")
-                if db_note.created_at
-                else None
-            ),
-            "updated_at": (
-                db_note.updated_at.strftime("%Y-%m-%d %H:%M:%S")
-                if db_note.updated_at
-                else None
-            ),
-        }
-
-        note_data.pop("user_id", None)
 
         content = {
             "message": constants.DATA_OBTAINED,
@@ -143,29 +95,13 @@ async def update_note(
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
         payload = get_token_data(access_token)
 
-        db_note = (
-            db.query(Note)
-            .filter(Note.user_id == payload["user_id"], Note.id == id)
-            .first()
-        )
+        db_note = update_note_for_user(db, payload["user_id"], id, note)
 
         if db_note is None:
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND,
                 content={"message": constants.NOTE_DOES_NOT_EXIST},
             )
-
-        if note.title:
-            db_note.title = note.title
-
-        if note.content:
-            db_note.content = note.content
-
-        if note.title or note.content:
-            db_note.updated_at = datetime.now()
-
-        db.commit()
-        db.refresh(db_note)
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -187,20 +123,13 @@ async def delete_note(request: Request, id: int, db: Session = Depends(get_db)):
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
         payload = get_token_data(access_token)
 
-        db_note = (
-            db.query(Note)
-            .filter(Note.user_id == payload["user_id"], Note.id == id)
-            .first()
-        )
+        db_note = delete_note_for_user(db, payload["user_id"], id)
 
         if db_note is None:
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND,
                 content={"message": constants.NOTE_DOES_NOT_EXIST},
             )
-
-        db.delete(db_note)
-        db.commit()
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
