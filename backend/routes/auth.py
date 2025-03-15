@@ -4,8 +4,8 @@ from fastapi.responses import JSONResponse
 import utils.constants as constants
 from sqlalchemy.orm import Session
 from database import get_db
-from models.user import User
-from utils.helpers import hash_value, check_value
+from services.user import register_user, get_user_by_username
+from utils.helpers import check_value
 from resources.security import generate_token
 from config import config
 
@@ -14,25 +14,14 @@ router = APIRouter(prefix=constants.AUTH_PREFIX, tags=[constants.AUTH_TAG])
 
 @router.post(constants.USER_REGISTER_ENDPOINT)
 async def register(user: UserBase, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.username == user.username).first()
-
-    if db_user:
-        return JSONResponse(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            content={"message": constants.USER_ALREADY_REGISTERED},
-        )
-
     try:
-        db_user = User(
-            username=user.username,
-            password=hash_value(user.password),
-            created_at=user.created_at,
-            updated_at=user.updated_at,
-        )
+        db_user = register_user(db, user)
 
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
+        if db_user is None:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content={"message": constants.USER_ALREADY_REGISTERED},
+            )
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -50,7 +39,7 @@ async def register(user: UserBase, db: Session = Depends(get_db)):
 
 @router.post(constants.USER_LOGIN_ENDPOINT)
 async def login(user: UserBase, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.username == user.username).first()
+    db_user = get_user_by_username(db, user.username)
 
     if db_user is None:
         return JSONResponse(
