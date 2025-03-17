@@ -1,0 +1,29 @@
+{
+  "page": {
+    "title": "Inicio de sesión",
+    "description": "Accede a tu cuenta para disfrutar de nuestros servicios."
+  },
+  "labels": {
+    "username": "Usuario",
+    "password": "Contraseña"
+  },
+  "placeholders": {
+    "username": "Escribe tu nombre de usuario",
+    "password": "Escribe tu contraseña"
+  },
+  "indicators": {
+    "noAccount": "¿No tienes cuenta?"
+  },
+  "buttons": {
+    "register": "Crear cuenta",
+    "login": "Iniciar sesión"
+  },
+  "accessibility": {
+    "loginButton": {
+      "ariaLabel": "Botón de inicio de sesión"
+    },
+    "registerButton": {
+      "ariaLabel": "Botón para crear cuenta"
+    }
+  }
+}

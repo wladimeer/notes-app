@@ -1,10 +1,10 @@
+import LanguageKey from '../types/language-key.type'
 import LanguageCode from '../types/language-code.type'
 
-const ENGLISH_LANGUAGE_CODE: LanguageCode = 'en'
-const SPANISH_LANGUAGE_CODE: LanguageCode = 'es'
+const LANGUAGE_CODE: Record<LanguageKey, LanguageCode> = {
+  ENGLISH: 'en',
+  SPANISH: 'es',
+  DEFAULT: 'es'
+}
 
-const DEFAULT_LANGUAGE_CODE: LanguageCode = SPANISH_LANGUAGE_CODE
-
-const VALID_LANGUAGE_CODES = [ENGLISH_LANGUAGE_CODE, SPANISH_LANGUAGE_CODE] as const
-
-export { ENGLISH_LANGUAGE_CODE, SPANISH_LANGUAGE_CODE, DEFAULT_LANGUAGE_CODE, VALID_LANGUAGE_CODES }
+export { LANGUAGE_CODE }

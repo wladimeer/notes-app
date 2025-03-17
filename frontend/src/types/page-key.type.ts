@@ -1,3 +1,3 @@
-type PageKey = 'loginPage' | 'notePage'
+type PageKey = 'LOGIN_PAGE' | 'NOTE_PAGE'
 
 export default PageKey

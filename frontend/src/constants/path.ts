@@ -1,6 +1,6 @@
-import ApiConfig from '../interfaces/api-config.interface'
+import ApiKey from '../types/api-key.type'
 
-const API_CONFIG: ApiConfig = {
+const API_CONFIG: Record<ApiKey, string> = {
   SERVER: import.meta.env.VITE_SERVER,
   AUTH_PATH: import.meta.env.VITE_AUTH_PATH,
   NOTE_PATH: import.meta.env.VITE_NOTE_PATH,

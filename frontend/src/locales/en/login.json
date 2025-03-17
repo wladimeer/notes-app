@@ -1,0 +1,29 @@
+{
+  "page": {
+    "title": "Login",
+    "description": "Access your account to enjoy our services."
+  },
+  "labels": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "placeholder": {
+    "username": "Type your username",
+    "password": "Type your password"
+  },
+  "indicators": {
+    "noAccount": "Don't have an account?"
+  },
+  "buttons": {
+    "register": "Create account",
+    "login": "Log in"
+  },
+  "accessibility": {
+    "loginButton": {
+      "ariaLabel": "Login button"
+    },
+    "registerButton": {
+      "ariaLabel": "Create account button"
+    }
+  }
+}

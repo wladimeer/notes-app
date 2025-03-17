@@ -1,8 +1,8 @@
 import LanguageCode from '../types/language-code.type'
 
-interface LanguageState {
+interface LanguageStore {
   languageCode: LanguageCode
   setLanguage: (code: LanguageCode) => Promise<void>
 }
 
-export default LanguageState
+export default LanguageStore
