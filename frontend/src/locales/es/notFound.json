@@ -1,0 +1,10 @@
+{
+  "page": {
+    "title": "Página no encontrada",
+    "description": "La página que estás buscando no existe. Puede que haya sido movida o eliminada."
+  },
+  "buttons": {
+    "toHome": "Volver a la página principal",
+    "login": "Iniciar sesión"
+  }
+}

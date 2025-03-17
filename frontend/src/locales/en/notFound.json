@@ -1,0 +1,10 @@
+{
+  "page": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for does not exist. It may have been moved or deleted."
+  },
+  "buttons": {
+    "toHome": "Return to the main page",
+    "login": "Login"
+  }
+}

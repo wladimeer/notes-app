@@ -12,18 +12,21 @@
     "password": "Escribe tu contraseña"
   },
   "indicators": {
-    "noAccount": "¿No tienes cuenta?"
+    "noAccount": "¿No tienes cuenta?",
+    "loggingIn": "Iniciando sesión"
   },
   "buttons": {
     "register": "Crear cuenta",
     "login": "Iniciar sesión"
   },
-  "accessibility": {
-    "loginButton": {
-      "ariaLabel": "Botón de inicio de sesión"
+  "validation": {
+    "username": {
+      "min": "Mínimo 4 caracteres",
+      "required": "El nombre de usuario es obligatorio"
     },
-    "registerButton": {
-      "ariaLabel": "Botón para crear cuenta"
+    "password": {
+      "min": "Mínimo 4 caracteres",
+      "required": "La contraseña es obligatoria"
     }
   }
 }

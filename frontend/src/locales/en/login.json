@@ -7,23 +7,26 @@
     "username": "Username",
     "password": "Password"
   },
-  "placeholder": {
+  "placeholders": {
     "username": "Type your username",
     "password": "Type your password"
   },
   "indicators": {
-    "noAccount": "Don't have an account?"
+    "noAccount": "Don't have an account?",
+    "loggingIn": "Logging in"
   },
   "buttons": {
     "register": "Create account",
     "login": "Log in"
   },
-  "accessibility": {
-    "loginButton": {
-      "ariaLabel": "Login button"
+  "validation": {
+    "username": {
+      "min": "Minimum 4 characters",
+      "required": "The username is required"
     },
-    "registerButton": {
-      "ariaLabel": "Create account button"
+    "password": {
+      "min": "Minimum 4 characters",
+      "required": "The password is required"
     }
   }
 }

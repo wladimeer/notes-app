@@ -8,7 +8,7 @@ const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
       currentUser: null,
-      isUserValid: get()?.currentUser !== null,
+      isUserValid: () => get().currentUser !== null,
       setUser: async (user: User) => set({ currentUser: user })
     }),
     {
