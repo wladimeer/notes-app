@@ -6,13 +6,20 @@ from routes.auth import router as auth_router
 from database import init_db
 from config import config
 from resources.security import verify_token, generate_token, get_token_data
+from fastapi.middleware.cors import CORSMiddleware
 from schemas.user import UserBase
 import utils.constants as constants
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=config.JWT_KEY)
 
-init_db()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[config.ORIGIN_URL],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.middleware("http")
@@ -73,6 +80,9 @@ async def before_request(request: Request, call_next):
 
 app.include_router(note_router)
 app.include_router(auth_router)
+
+
+init_db()
 
 
 @app.get(constants.ROOT_PATH)
