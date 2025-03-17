@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import UserStore from '../interfaces/user-state.interface'
+import UserStore from '../interfaces/user-store.interface'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { STORAGE_KEY } from '../constants/storage'
 import User from '../interfaces/user.interface'

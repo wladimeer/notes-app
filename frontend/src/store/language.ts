@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import LanguageCode from '../types/language-code.type'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import LanguageStore from '../interfaces/language-state.interface'
+import LanguageStore from '../interfaces/language-store.interface'
 import { LANGUAGE_CODE } from '../constants/language'
 import { STORAGE_KEY } from '../constants/storage'
 
