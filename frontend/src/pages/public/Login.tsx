@@ -27,10 +27,10 @@ const Login = () => {
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(4, translation('validation.username.min'))
+      .min(4, translation('validation.username.min', { min: 4 }))
       .required(translation('validation.username.required')),
     password: Yup.string()
-      .min(4, translation('validation.password.min'))
+      .min(4, translation('validation.password.min', { min: 4 }))
       .required(translation('validation.password.required'))
   })
 

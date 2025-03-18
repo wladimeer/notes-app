@@ -21,11 +21,11 @@
   },
   "validation": {
     "username": {
-      "min": "Minimum 4 characters",
+      "min": "Minimum {{min}} characters",
       "required": "The username is required"
     },
     "password": {
-      "min": "Minimum 4 characters",
+      "min": "Minimum {{min}} characters",
       "required": "The password is required"
     }
   }
