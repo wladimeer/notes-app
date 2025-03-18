@@ -1,4 +1,4 @@
-import InformationModal from './information-modal.interface'
+import type InformationModal from './information-modal.interface'
 
 interface InformationModalProps {
   informationModal: InformationModal

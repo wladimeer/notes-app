@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
-import InformationModal from '../interfaces/information-modal.interface'
-import ActionType from '../types/action-type.type'
+import type InformationModal from '../interfaces/information-modal.interface'
+import type ActionType from '../types/action-type.type'
 
 const useInformationModal = () => {
   const initialState: InformationModal = {

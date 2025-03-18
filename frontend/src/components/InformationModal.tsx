@@ -18,7 +18,9 @@ const style = {
 const InformationModal = ({ informationModal, resetInformationModal }: InformationModalProps) => {
   const { title, visible, loading, message } = informationModal
 
-  const handleOnClose = () => resetInformationModal
+  const handleOnClose = () => {
+    resetInformationModal()
+  }
 
   return (
     <>
@@ -33,7 +35,7 @@ const InformationModal = ({ informationModal, resetInformationModal }: Informati
             {title}
           </Typography>
 
-          <Stack alignItems="center" justifyContent="center" marginY={1} gap={1}>
+          <Stack alignItems="center" justifyContent="center" my={1} gap={1}>
             <Typography id="information-modal-description">{message}</Typography>
 
             {loading && <CircularProgress size={25} />}
