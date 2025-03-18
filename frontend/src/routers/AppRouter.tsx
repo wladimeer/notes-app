@@ -4,12 +4,15 @@ import { ROUTE_CONFIG } from '../constants/route'
 import NotFound from '../pages/public/NotFound'
 import Login from '../pages/public/Login'
 import Private from '../guards/Private'
+import Public from '../guards/Public'
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTE_CONFIG.LOGIN} element={<Login />} />
+        <Route element={<Public />}>
+          <Route path={ROUTE_CONFIG.LOGIN} element={<Login />} />
+        </Route>
 
         <Route element={<Private />}>
           <Route path={ROUTE_CONFIG.HOME} element={<NoteList />} />

@@ -1,0 +1,34 @@
+{
+  "page": {
+    "title": "Notes",
+    "description": "Welcome back! You have logged in successfully."
+  },
+  "labels": {
+    "title": "Title",
+    "content": "Content"
+  },
+  "placeholders": {
+    "title": "Write the title",
+    "content": "Write the content of the note"
+  },
+  "indicators": {
+    "noData": "No notes yet! Add some to get started",
+    "notesListTitle": "Your Notes",
+    "loadingNotes": "Loading notes..."
+  },
+  "buttons": {
+    "addNote": "Add note",
+    "updateNote": "Update",
+    "deleteNote": "Delete"
+  },
+  "validation": {
+    "title": {
+      "min": "The note must be at least 5 characters long",
+      "required": "The title is required"
+    },
+    "content": {
+      "min": "The content must be at least 10 characters long",
+      "required": "The content is required"
+    }
+  }
+}
