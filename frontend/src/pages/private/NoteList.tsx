@@ -3,8 +3,10 @@ import type Note from '../../interfaces/note.interface'
 import { RESPONSE_TYPE } from '../../constants/response'
 import { Card, CardContent, Container, Typography, Stack, List } from '@mui/material'
 import { TextField, Button, ListItemText, ListSubheader, ListItem } from '@mui/material'
-import { getNotes, createNote } from '../../services/note'
+import { getNotes, createNote, deleteNote } from '../../services/note'
+import ActionModal from '../../components/ActionModal'
 import type NoteForm from '../../interfaces/note-form.interface'
+import useActionModal from '../../hooks/useActionModal'
 import { ToastContainer, toast } from 'react-toastify'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { LinearProgress } from '@mui/material'
@@ -22,6 +24,7 @@ const style = {
 
 const NoteList = () => {
   const [translation] = useTranslation(PAGE_KEY.NOTE_PAGE)
+  const { actionModal, setActionModal, resetActionModal } = useActionModal()
   const [loading, setLoading] = useState<boolean>(true)
   const [notes, setNotes] = useState<Note[]>([])
 
@@ -32,10 +35,10 @@ const NoteList = () => {
 
   const validationSchema = Yup.object({
     title: Yup.string()
-      .min(5, translation('validation.title.min'))
+      .min(5, translation('validation.title.min', { min: 5 }))
       .required(translation('validation.title.required')),
     content: Yup.string()
-      .min(10, translation('validation.content.min'))
+      .min(10, translation('validation.content.min', { min: 10 }))
       .required(translation('validation.content.required'))
   })
 
@@ -45,6 +48,34 @@ const NoteList = () => {
     if (response.status === RESPONSE_TYPE.SUCCESS) {
       toast(response.message, { type: 'success' })
       resetForm()
+      loadNotes()
+    }
+
+    if (response.status === RESPONSE_TYPE.ERROR) {
+      toast(response.message, { type: 'warning' })
+    }
+
+    if (response.status === RESPONSE_TYPE.EXCEPTION) {
+      toast(response.message, { type: 'error' })
+    }
+  }
+
+  const handleOnDelete = (note: Note) => {
+    setActionModal({
+      title: translation('confirmation.deleteNote', { title: note.title }),
+      visible: true,
+      confirm: translation('buttons.yesContinue'),
+      cancel: translation('buttons.cancel'),
+      onConfirm: () => handleDelete(note)
+    })
+  }
+
+  const handleDelete = async (note: Note) => {
+    const response = await deleteNote(note.id)
+
+    if (response.status === RESPONSE_TYPE.SUCCESS) {
+      toast(response.message, { type: 'success' })
+      resetActionModal()
       loadNotes()
     }
 
@@ -72,6 +103,7 @@ const NoteList = () => {
 
   return (
     <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center' }}>
+      <ActionModal {...{ actionModal, resetActionModal }} />
       <ToastContainer />
 
       <Card
@@ -183,18 +215,24 @@ const NoteList = () => {
               </ListSubheader>
             }
           >
-            {notes?.map(({ id, title, content }) => (
-              <ListItem sx={{ px: 0 }} key={id} divider>
+            {notes?.map((note) => (
+              <ListItem sx={{ px: 0 }} key={note.id} divider>
                 <ListItemText
                   sx={{ textWrap: 'pretty', hyphens: 'auto' }}
-                  primary={title}
-                  secondary={content}
+                  primary={note.title}
+                  secondary={note.content}
                 />
                 <Stack direction="column" spacing={1} ml={1}>
                   <Button variant="outlined" color="primary" size="small">
                     {translation('buttons.updateNote')}
                   </Button>
-                  <Button variant="outlined" color="error" size="small">
+
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    onClick={() => handleOnDelete(note)}
+                  >
                     {translation('buttons.deleteNote')}
                   </Button>
                 </Stack>

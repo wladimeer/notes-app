@@ -19,16 +19,21 @@
   "buttons": {
     "addNote": "Agregar nota",
     "updateNote": "Actualizar",
-    "deleteNote": "Eliminar"
+    "deleteNote": "Eliminar",
+    "yesContinue": "¡Sí! Continuar",
+    "cancel": "Cancelar"
   },
   "validation": {
     "title": {
-      "min": "La nota debe ser de mínimo 5 caracteres",
+      "min": "La nota debe ser de mínimo {{min}} caracteres",
       "required": "El título es obligatorio"
     },
     "content": {
-      "min": "El contenido debe ser de mínimo de 10 caracteres",
+      "min": "El contenido debe ser de mínimo de {{min}} caracteres",
       "required": "El contenido es obligatorio"
     }
+  },
+  "confirmation": {
+    "deleteNote": "¿Estás seguro de eliminar la nota con el título \"{{title}}\"?"
   }
 }

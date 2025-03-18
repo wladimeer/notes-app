@@ -65,11 +65,11 @@ const getNotes = async (): Promise<ApiResponse> => {
   }
 }
 
-const updateNote = async (id: Pick<Note, 'id'>, note: NoteForm): Promise<ApiResponse> => {
-  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}`
+const updateNote = async (id: number, note: NoteForm): Promise<ApiResponse> => {
+  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}${id}`
 
   try {
-    const { data }: AxiosResponse = await apiClient.put(REQUEST_URL, { params: { id }, ...note })
+    const { data }: AxiosResponse = await apiClient.put(REQUEST_URL, note)
 
     return {
       status: 0,
@@ -92,11 +92,11 @@ const updateNote = async (id: Pick<Note, 'id'>, note: NoteForm): Promise<ApiResp
   }
 }
 
-const deleteNote = async (id: Pick<Note, 'id'>): Promise<ApiResponse> => {
-  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}`
+const deleteNote = async (id: number): Promise<ApiResponse> => {
+  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}${id}`
 
   try {
-    const { data }: AxiosResponse = await apiClient.put(REQUEST_URL, { params: { id } })
+    const { data }: AxiosResponse = await apiClient.delete(REQUEST_URL)
 
     return {
       status: 0,
@@ -119,11 +119,11 @@ const deleteNote = async (id: Pick<Note, 'id'>): Promise<ApiResponse> => {
   }
 }
 
-const findNote = async (id: Pick<Note, 'id'>): Promise<ApiResponse> => {
-  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}`
+const findNote = async (id: number): Promise<ApiResponse> => {
+  const REQUEST_URL = `${API_CONFIG.NOTE_ENDPOINT}${id}`
 
   try {
-    const { data }: AxiosResponse = await apiClient.get(REQUEST_URL, { params: id })
+    const { data }: AxiosResponse = await apiClient.get(REQUEST_URL)
 
     return {
       status: 0,

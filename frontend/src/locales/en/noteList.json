@@ -17,18 +17,23 @@
     "loadingNotes": "Loading notes..."
   },
   "buttons": {
-    "addNote": "Add note",
+    "addNote": "Add Note",
     "updateNote": "Update",
-    "deleteNote": "Delete"
+    "deleteNote": "Delete",
+    "yesContinue": "Yes! Continue",
+    "cancel": "Cancel"
   },
   "validation": {
     "title": {
-      "min": "The note must be at least 5 characters long",
+      "min": "The note must be at least {{min}} characters long",
       "required": "The title is required"
     },
     "content": {
-      "min": "The content must be at least 10 characters long",
+      "min": "The content must be at least {{min}} characters long",
       "required": "The content is required"
     }
+  },
+  "confirmation": {
+    "deleteNote": "Are you sure you want to delete the note titled \"{{title}}\"?"
   }
 }
