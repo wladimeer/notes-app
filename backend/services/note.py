@@ -5,7 +5,12 @@ from datetime import datetime
 
 
 def get_notes_for_user(db: Session, user_id: int):
-    db_notes = db.query(Note).filter(Note.user_id == user_id).all()
+    db_notes = (
+        db.query(Note)
+        .filter(Note.user_id == user_id)
+        .order_by(Note.created_at.desc())
+        .all()
+    )
 
     notes_data = [
         {
