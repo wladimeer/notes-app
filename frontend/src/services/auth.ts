@@ -3,7 +3,7 @@ import { API_CONFIG } from '../constants/path'
 import type UserForm from '../interfaces/user-form.interface'
 import type ApiResponse from '../interfaces/api-response.interface'
 import type User from '../interfaces/user.interface'
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 
 const apiClient = axios.create({
   baseURL: API_CONFIG.SERVER,
@@ -19,7 +19,7 @@ const signIn = async (username: string, password: string): Promise<ApiResponse> 
   }
 
   try {
-    const { data } = await apiClient.post(REQUEST_URL, DATA)
+    const { data }: AxiosResponse = await apiClient.post(REQUEST_URL, DATA)
 
     return {
       status: 0,
