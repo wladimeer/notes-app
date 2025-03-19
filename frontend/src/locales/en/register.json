@@ -1,0 +1,34 @@
+{
+  "page": {
+    "title": "Account Registration",
+    "description": "Create your account to enjoy our services."
+  },
+  "labels": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "placeholders": {
+    "username": "Type your username",
+    "password": "Type your password"
+  },
+  "indicators": {
+    "withAccount": "Do you have an account?",
+    "loggingIn": "Account successfully created! Logging in"
+  },
+  "buttons": {
+    "register": "Sign up",
+    "login": "Log in"
+  },
+  "validation": {
+    "username": {
+      "min": "The username must be at least {{min}} characters long",
+      "max": "The username must be at most {{max}} characters long",
+      "required": "The username is required"
+    },
+    "password": {
+      "min": "The password must be at least {{min}} characters long",
+      "max": "The password must be at most {{max}} characters long",
+      "required": "The password is required"
+    }
+  }
+}

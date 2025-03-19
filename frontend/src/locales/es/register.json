@@ -1,0 +1,34 @@
+{
+  "page": {
+    "title": "Registro de cuenta",
+    "description": "Crea tu cuenta para disfrutar de nuestros servicios."
+  },
+  "labels": {
+    "username": "Usuario",
+    "password": "Contraseña"
+  },
+  "placeholders": {
+    "username": "Escribe tu nombre de usuario",
+    "password": "Escribe tu contraseña"
+  },
+  "indicators": {
+    "withAccount": "¿Tienes una cuenta?",
+    "loggingIn": "¡Cuenta creada con éxito! Iniciando sesión"
+  },
+  "buttons": {
+    "register": "Crear cuenta",
+    "login": "Iniciar sesión"
+  },
+  "validation": {
+    "username": {
+      "min": "El usuario debe ser de mínimo {{min}} caracteres",
+      "max": "El usuario debe ser de máximo {{max}} caracteres",
+      "required": "El nombre de usuario es obligatorio"
+    },
+    "password": {
+      "min": "La contraseña debe ser de mínimo {{min}} caracteres",
+      "max": "La contraseña debe ser de máximo {{max}} caracteres",
+      "required": "La contraseña es obligatoria"
+    }
+  }
+}

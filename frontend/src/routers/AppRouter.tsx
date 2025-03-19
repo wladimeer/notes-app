@@ -1,3 +1,4 @@
+import Register from '../pages/public/Register'
 import NoteList from '../pages/private/NoteList'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { ROUTE_CONFIG } from '../constants/route'
@@ -12,6 +13,7 @@ const AppRouter = () => {
       <Routes>
         <Route element={<Public />}>
           <Route path={ROUTE_CONFIG.LOGIN} element={<Login />} />
+          <Route path={ROUTE_CONFIG.REGISTER} element={<Register />} />
         </Route>
 
         <Route element={<Private />}>

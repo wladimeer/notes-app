@@ -9,6 +9,8 @@ import languageSwitcherEN from './locales/en/languageSwitcher.json'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import { LANGUAGE_CODE } from './constants/language'
+import registerEN from './locales/en/register.json'
+import registerES from './locales/es/register.json'
 import noteListES from './locales/es/noteList.json'
 import noteListEN from './locales/en/noteList.json'
 import loginEN from './locales/en/login.json'
@@ -29,12 +31,14 @@ i18n.init({
       [PAGE_KEY.NOTE_PAGE]: noteListES,
       [PAGE_KEY.NOT_FOUND_PAGE]: notFoundES,
       [COMPONENT_KEY.LANGUAGE_SWITCHER]: languageSwitcherES,
+      [PAGE_KEY.REGISTER_PAGE]: registerES,
       [PAGE_KEY.LOGIN_PAGE]: loginES
     },
     [LANGUAGE_CODE.ENGLISH]: {
       [PAGE_KEY.NOTE_PAGE]: noteListEN,
       [PAGE_KEY.NOT_FOUND_PAGE]: notFoundEN,
       [COMPONENT_KEY.LANGUAGE_SWITCHER]: languageSwitcherEN,
+      [PAGE_KEY.REGISTER_PAGE]: registerEN,
       [PAGE_KEY.LOGIN_PAGE]: loginEN
     }
   },
