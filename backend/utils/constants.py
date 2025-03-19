@@ -17,6 +17,7 @@ VERIFY_CREDENTIAL = "Por favor, verifica los datos que has ingresado"
 USER_REGISTERED = "¡Bienvenido! Tu cuenta ha sido creada con éxito"
 USER_ALREADY_REGISTERED = "Este usuario ya está registrado. Intenta con otro nombre"
 USER_SUCCESSFULLY_LOGIN = "¡Bienvenido de nuevo! Has iniciado sesión correctamente"
+USER_LOGGED_OUT = "¡Has cerrado sesión con éxito!"
 
 # Note constants
 DATA_OBTAINED = "Los datos se han obtenido correctamente. ¡Todo listo!"

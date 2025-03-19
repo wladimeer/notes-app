@@ -1,5 +1,5 @@
 from schemas.user import UserBase
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Response, status
 from fastapi.responses import JSONResponse
 import utils.constants as constants
 from sqlalchemy.orm import Session
@@ -93,3 +93,13 @@ async def login(user: UserBase, db: Session = Depends(get_db)):
     )
 
     return response_data
+
+
+@router.post(constants.USER_LOGOUT_ENDPOINT)
+async def logout(response: Response):
+    response.delete_cookie(key=constants.ACCESS_TOKEN_KEY, path="/")
+    response.delete_cookie(key=constants.REFRESH_TOKEN_KEY, path="/")
+
+    content = {"message": constants.USER_LOGGED_OUT}
+
+    return JSONResponse(status_code=status.HTTP_200_OK, content=content)
