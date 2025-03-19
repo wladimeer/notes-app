@@ -9,7 +9,8 @@ const useUserStore = create<UserStore>()(
     (set, get) => ({
       currentUser: null,
       isUserValid: () => get().currentUser !== null,
-      setUser: async (user: User) => set({ currentUser: user })
+      setUser: async (user: User) => set({ currentUser: user }),
+      removeUser: () => set({ currentUser: null })
     }),
     {
       name: STORAGE_KEY.USER,

@@ -1,8 +1,8 @@
 import { Modal, Box, Typography, Stack, Button, TextField } from '@mui/material'
 import type ModalFormProps from '../interfaces/modal-form-props.interface'
+import { getFormNoteSchema } from '../utils/validationsSchemas'
 import type NoteForm from '../interfaces/note-form.interface'
 import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
 
 const style = {
   top: '50%',
@@ -36,16 +36,7 @@ const ModalForm = ({ modalForm, resetModalForm }: ModalFormProps) => {
     resetModalForm()
   }
 
-  const validationSchema = Yup.object({
-    title: Yup.string()
-      .min(5, translation('validation.title.min', { min: 5 }))
-      .max(50, translation('validation.title.max', { max: 50 }))
-      .required(translation('validation.title.required')),
-    content: Yup.string()
-      .min(10, translation('validation.content.min', { min: 10 }))
-      .max(200, translation('validation.content.max', { max: 200 }))
-      .required(translation('validation.content.required'))
-  })
+  const validationSchema = getFormNoteSchema(translation)
 
   return (
     <>

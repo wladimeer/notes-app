@@ -16,16 +16,18 @@
     "loggingIn": "Logging in"
   },
   "buttons": {
-    "register": "Create account",
+    "register": "Sign up",
     "login": "Log in"
   },
   "validation": {
     "username": {
-      "min": "Minimum {{min}} characters",
+      "min": "The username must be at least {{min}} characters long",
+      "max": "The username must be at most {{max}} characters long",
       "required": "The username is required"
     },
     "password": {
-      "min": "Minimum {{min}} characters",
+      "min": "The password must be at least {{min}} characters long",
+      "max": "The password must be at most {{max}} characters long",
       "required": "The password is required"
     }
   }

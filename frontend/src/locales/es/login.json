@@ -21,11 +21,13 @@
   },
   "validation": {
     "username": {
-      "min": "Mínimo {{min}} caracteres",
+      "min": "El usuario debe ser de mínimo {{min}} caracteres",
+      "max": "El usuario debe ser de máximo {{max}} caracteres",
       "required": "El nombre de usuario es obligatorio"
     },
     "password": {
-      "min": "Mínimo {{min}} caracteres",
+      "min": "La contraseña debe ser de mínimo {{min}} caracteres",
+      "max": "La contraseña debe ser de máximo {{max}} caracteres",
       "required": "La contraseña es obligatoria"
     }
   }

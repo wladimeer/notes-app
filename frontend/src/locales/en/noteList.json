@@ -15,14 +15,16 @@
     "noData": "No notes yet! Add some to get started",
     "notesListTitle": "Your notes",
     "loadingNotes": "Loading notes...",
-    "updatedOf": "Update of \"{{title}}\""
+    "updatedOf": "Update of \"{{title}}\"",
+    "sessionClosed": "You have successfully logged out! We are redirecting you to the login page"
   },
   "buttons": {
     "addNote": "Add Note",
     "updateNote": "Update",
     "deleteNote": "Delete",
     "yesContinue": "Yes! Continue",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "signOut": "Log out"
   },
   "validation": {
     "title": {

@@ -15,14 +15,16 @@
     "noData": "¡Aún no hay notas! Agrega algunas para comenzar",
     "notesListTitle": "Tus notas",
     "loadingNotes": "Cargando notas...",
-    "updatedOf": "Actualización de \"{{title}}\""
+    "updatedOf": "Actualización de \"{{title}}\"",
+    "sessionClosed": "¡Has cerrado sesión con éxito! Te estamos redireccionando al inicio de sesión"
   },
   "buttons": {
     "addNote": "Agregar nota",
     "updateNote": "Actualizar",
     "deleteNote": "Eliminar",
     "yesContinue": "¡Sí! Continuar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "signOut": "Cerrar sesión"
   },
   "validation": {
     "title": {

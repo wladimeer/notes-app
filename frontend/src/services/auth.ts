@@ -10,16 +10,11 @@ const apiClient = axios.create({
   withCredentials: true
 })
 
-const signIn = async (username: string, password: string): Promise<ApiResponse> => {
+const signIn = async (user: UserForm): Promise<ApiResponse> => {
   const REQUEST_URL = `${API_CONFIG.USER_LOGIN_ENDPOINT}`
 
-  const DATA: UserForm = {
-    username,
-    password
-  }
-
   try {
-    const { data }: AxiosResponse = await apiClient.post(REQUEST_URL, DATA)
+    const { data }: AxiosResponse = await apiClient.post(REQUEST_URL, user)
 
     return {
       status: 0,
@@ -30,7 +25,9 @@ const signIn = async (username: string, password: string): Promise<ApiResponse> 
     if (error instanceof AxiosError) {
       return {
         status: 1,
-        message: error.response?.data.message
+        message:
+          error.response?.data.message ??
+          'Parece que hubo un problema al conectar con el servidor. Por favor, intenta nuevamente más tarde'
       }
     }
 
@@ -41,4 +38,58 @@ const signIn = async (username: string, password: string): Promise<ApiResponse> 
   }
 }
 
-export { signIn }
+const signOut = async (): Promise<ApiResponse> => {
+  const REQUEST_URL = `${API_CONFIG.USER_LOGOUT_ENDPOINT}`
+
+  try {
+    const { data }: AxiosResponse = await apiClient.post(REQUEST_URL)
+
+    return {
+      status: 0,
+      message: data?.message
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        status: 1,
+        message:
+          error.response?.data.message ??
+          'Parece que hubo un problema al conectar con el servidor. Por favor, intenta nuevamente más tarde'
+      }
+    }
+
+    return {
+      status: 2,
+      message: 'Algo salió mal. Intenta nuevamente en unos minutos'
+    }
+  }
+}
+
+const createUser = async (user: UserForm): Promise<ApiResponse> => {
+  const REQUEST_URL = `${API_CONFIG.USER_REGISTER_ENDPOINT}`
+
+  try {
+    const { data }: AxiosResponse = await apiClient.post(REQUEST_URL, user)
+
+    return {
+      status: 0,
+      message: data?.message
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        status: 1,
+        message:
+          error.response?.data.message ??
+          'Parece que hubo un problema al conectar con el servidor. Por favor, intenta nuevamente más tarde'
+      }
+    }
+
+    return {
+      status: 2,
+      message: 'Algo salió mal. Intenta nuevamente en unos minutos'
+    }
+  }
+}
+
+export { signIn, signOut, createUser }
