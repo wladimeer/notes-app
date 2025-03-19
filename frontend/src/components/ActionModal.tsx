@@ -1,6 +1,5 @@
 import { Modal, Box, Typography, Stack, Button } from '@mui/material'
 import type ActionModalProps from '../interfaces/action-modal-props.interface'
-import type ActionModal from '../interfaces/action-modal.interface'
 
 const style = {
   top: '50%',
