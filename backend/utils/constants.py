@@ -10,6 +10,7 @@ USER_LOGIN_ENDPOINT = "/login"
 USER_LOGOUT_ENDPOINT = "/logout"
 NOTE_PREFIX = "/api/notes"
 NOTE_PATH = "/{id}"
+NO_PATH = ""
 
 # User constants
 VERIFY_CREDENTIAL = "Por favor, verifica los datos que has ingresado"
@@ -19,10 +20,10 @@ USER_SUCCESSFULLY_LOGIN = "¡Bienvenido de nuevo! Has iniciado sesión correctam
 
 # Note constants
 DATA_OBTAINED = "Los datos se han obtenido correctamente. ¡Todo listo!"
-NOTE_REGISTERED = "¡Éxito! Tu nota ha sido registrada correctamente"
+NOTE_REGISTERED = "¡Tu nota ha sido registrada correctamente!"
 NOTE_DOES_NOT_EXIST = "Lo sentimos, no encontramos esa nota"
 NOTE_UPDATED = "¡Tu nota ha sido actualizada exitosamente!"
-NOTE_DELETED = "La nota ha sido eliminada con éxito"
+NOTE_DELETED = "¡La nota ha sido eliminada con éxito!"
 NOTE_UPDATE_CONCURRENCY_ERROR = "Hubo un problema al intentar actualizar la nota. Es posible que la nota haya sido modificada recientemente. Por favor, intenta nuevamente"
 NOTE_DELETE_CONCURRENCY_ERROR = "Hubo un problema al intentar eliminar la nota. Es posible que la nota ya haya sido eliminada. Intenta nuevamente"
 

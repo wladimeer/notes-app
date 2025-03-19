@@ -14,7 +14,7 @@ import utils.constants as constants
 router = APIRouter(prefix=constants.NOTE_PREFIX, tags=[constants.NOTE_TAG])
 
 
-@router.get(constants.ROOT_PATH)
+@router.get(constants.NO_PATH)
 async def get_notes(request: Request, db: Session = Depends(get_db)):
     try:
         access_token = request.cookies.get(constants.ACCESS_TOKEN_KEY)
