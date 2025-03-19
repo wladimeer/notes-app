@@ -14,7 +14,8 @@
   "indicators": {
     "noData": "¡Aún no hay notas! Agrega algunas para comenzar",
     "notesListTitle": "Tus notas",
-    "loadingNotes": "Cargando notas..."
+    "loadingNotes": "Cargando notas...",
+    "updatedOf": "Actualización de \"{{title}}\""
   },
   "buttons": {
     "addNote": "Agregar nota",
@@ -26,10 +27,12 @@
   "validation": {
     "title": {
       "min": "La nota debe ser de mínimo {{min}} caracteres",
+      "max": "La nota debe ser de máximo {{max}} caracteres",
       "required": "El título es obligatorio"
     },
     "content": {
-      "min": "El contenido debe ser de mínimo de {{min}} caracteres",
+      "min": "El contenido debe ser de mínimo {{min}} caracteres",
+      "max": "El contenido debe ser de máximo {{max}} caracteres",
       "required": "El contenido es obligatorio"
     }
   },

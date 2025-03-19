@@ -3,12 +3,14 @@ import type Note from '../../interfaces/note.interface'
 import { RESPONSE_TYPE } from '../../constants/response'
 import { Card, CardContent, Container, Typography, Stack, List } from '@mui/material'
 import { TextField, Button, ListItemText, ListSubheader, ListItem } from '@mui/material'
-import { getNotes, createNote, deleteNote } from '../../services/note'
-import ActionModal from '../../components/ActionModal'
+import { getNotes, createNote, deleteNote, updateNote } from '../../services/note'
 import type NoteForm from '../../interfaces/note-form.interface'
 import useActionModal from '../../hooks/useActionModal'
 import { ToastContainer, toast } from 'react-toastify'
+import ActionModal from '../../components/ActionModal'
 import { Form, Formik, FormikHelpers } from 'formik'
+import useModalForm from '../../hooks/useModalForm'
+import ModalForm from '../../components/ModalForm'
 import { LinearProgress } from '@mui/material'
 import { PAGE_KEY } from '../../constants/page'
 import { useEffect, useState } from 'react'
@@ -25,6 +27,7 @@ const style = {
 const NoteList = () => {
   const [translation] = useTranslation(PAGE_KEY.NOTE_PAGE)
   const { actionModal, setActionModal, resetActionModal } = useActionModal()
+  const { modalForm, setModalForm, resetModalForm } = useModalForm()
   const [loading, setLoading] = useState<boolean>(true)
   const [notes, setNotes] = useState<Note[]>([])
 
@@ -36,9 +39,11 @@ const NoteList = () => {
   const validationSchema = Yup.object({
     title: Yup.string()
       .min(5, translation('validation.title.min', { min: 5 }))
+      .max(50, translation('validation.title.max', { max: 50 }))
       .required(translation('validation.title.required')),
     content: Yup.string()
       .min(10, translation('validation.content.min', { min: 10 }))
+      .max(200, translation('validation.content.max', { max: 200 }))
       .required(translation('validation.content.required'))
   })
 
@@ -60,6 +65,18 @@ const NoteList = () => {
     }
   }
 
+  const handleOnUpdate = (note: Note) => {
+    setModalForm({
+      title: translation('indicators.updatedOf', { title: note.title }),
+      visible: true,
+      confirm: translation('buttons.updateNote'),
+      cancel: translation('buttons.cancel'),
+      onConfirm: (updatedNote: Note) => handleUpdate(updatedNote),
+      translation,
+      note
+    })
+  }
+
   const handleOnDelete = (note: Note) => {
     setActionModal({
       title: translation('confirmation.deleteNote', { title: note.title }),
@@ -68,6 +85,24 @@ const NoteList = () => {
       cancel: translation('buttons.cancel'),
       onConfirm: () => handleDelete(note)
     })
+  }
+
+  const handleUpdate = async (note: Note) => {
+    const response = await updateNote(note.id, note)
+
+    if (response.status === RESPONSE_TYPE.SUCCESS) {
+      toast(response.message, { type: 'success' })
+      resetModalForm()
+      loadNotes()
+    }
+
+    if (response.status === RESPONSE_TYPE.ERROR) {
+      toast(response.message, { type: 'warning' })
+    }
+
+    if (response.status === RESPONSE_TYPE.EXCEPTION) {
+      toast(response.message, { type: 'error' })
+    }
   }
 
   const handleDelete = async (note: Note) => {
@@ -104,6 +139,7 @@ const NoteList = () => {
   return (
     <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center' }}>
       <ActionModal {...{ actionModal, resetActionModal }} />
+      <ModalForm {...{ modalForm, resetModalForm }} />
       <ToastContainer />
 
       <Card
@@ -216,14 +252,19 @@ const NoteList = () => {
             }
           >
             {notes?.map((note) => (
-              <ListItem sx={{ px: 0 }} key={note.id} divider>
+              <ListItem sx={{ px: 0, paddingRight: 1 }} key={note.id} divider>
                 <ListItemText
-                  sx={{ textWrap: 'pretty', hyphens: 'auto' }}
+                  sx={{ wordBreak: 'break-word', textWrap: 'pretty', hyphens: 'auto' }}
                   primary={note.title}
                   secondary={note.content}
                 />
                 <Stack direction="column" spacing={1} ml={1}>
-                  <Button variant="outlined" color="primary" size="small">
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="small"
+                    onClick={() => handleOnUpdate(note)}
+                  >
                     {translation('buttons.updateNote')}
                   </Button>
 

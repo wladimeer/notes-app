@@ -13,8 +13,9 @@
   },
   "indicators": {
     "noData": "No notes yet! Add some to get started",
-    "notesListTitle": "Your Notes",
-    "loadingNotes": "Loading notes..."
+    "notesListTitle": "Your notes",
+    "loadingNotes": "Loading notes...",
+    "updatedOf": "Update of \"{{title}}\""
   },
   "buttons": {
     "addNote": "Add Note",
@@ -26,10 +27,12 @@
   "validation": {
     "title": {
       "min": "The note must be at least {{min}} characters long",
+      "max": "The note must be at most {{max}} characters long",
       "required": "The title is required"
     },
     "content": {
       "min": "The content must be at least {{min}} characters long",
+      "max": "The content must be at most {{max}} characters long",
       "required": "The content is required"
     }
   },

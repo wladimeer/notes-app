@@ -11,7 +11,7 @@ const apiClient = axios.create({
 })
 
 const createNote = async (note: NoteForm): Promise<ApiResponse> => {
-  const REQUEST_URL = `${API_CONFIG.NOTE_PATH}`
+  const REQUEST_URL = `${API_CONFIG.NOTE_PATH}/`
 
   try {
     const { data }: AxiosResponse = await apiClient.post(REQUEST_URL, note)
