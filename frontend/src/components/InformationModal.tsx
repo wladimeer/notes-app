@@ -36,7 +36,9 @@ const InformationModal = ({ informationModal, resetInformationModal }: Informati
           </Typography>
 
           <Stack alignItems="center" justifyContent="center" my={1} gap={1}>
-            <Typography id="information-modal-description">{message}</Typography>
+            <Typography id="information-modal-description" align="center">
+              {message}
+            </Typography>
 
             {loading && <CircularProgress size={25} />}
           </Stack>
