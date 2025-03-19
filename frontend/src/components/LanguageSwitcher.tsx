@@ -25,7 +25,7 @@ const LanguageSwitcher = () => {
   useEffect(loadLanguage, [loadLanguage])
 
   return (
-    <FormControl size="small" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
+    <FormControl size="small" sx={{ position: 'absolute', bottom: 5, right: 5 }}>
       <InputLabel id="language-select-label">{translation('indicators.language')}</InputLabel>
       <Select
         id="language-select"
@@ -36,10 +36,10 @@ const LanguageSwitcher = () => {
         autoWidth
       >
         <MenuItem value={LANGUAGE_CODE.SPANISH}>
-          <CL title="Chile" width={35} />
+          <CL title="Chile" width={30} />
         </MenuItem>
         <MenuItem value={LANGUAGE_CODE.ENGLISH}>
-          <US title="United States" width={35} />
+          <US title="United States" width={30} />
         </MenuItem>
       </Select>
     </FormControl>
