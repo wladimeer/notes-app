@@ -4,7 +4,6 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_db
 from resources.security import get_token_data
-from datetime import datetime
 from services.note import (
     get_notes_for_user,
     create_note_for_user,
@@ -159,13 +158,16 @@ async def delete_note(request: Request, id: int, db: AsyncSession = Depends(get_
             status_code=status.HTTP_200_OK,
             content={"message": constants.NOTE_DELETED},
         )
+
     except IntegrityError:
         return JSONResponse(
             status_code=status.HTTP_409_CONFLICT,
             content={"message": constants.NOTE_DELETE_CONCURRENCY_ERROR},
         )
+
     except Exception:
         await db.rollback()
+
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content={"message": constants.EXCEPTION_MESSAGE},
