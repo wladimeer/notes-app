@@ -11,6 +11,7 @@ import { getNotes, createNote, deleteNote, updateNote, findNote } from '../../se
 import ConflictResolutionModal from '../../components/ConflictResolutionModal'
 import { getFormNoteSchema } from '../../utils/validationsSchemas'
 import type NoteForm from '../../interfaces/note-form.interface'
+import { cancelPendingRequests } from '../../services/note'
 import useActionModal from '../../hooks/useActionModal'
 import { ToastContainer, toast } from 'react-toastify'
 import ActionModal from '../../components/ActionModal'
@@ -252,7 +253,12 @@ const NoteList = () => {
   }
 
   useEffect(() => {
+    cancelPendingRequests()
     loadNotes()
+
+    return () => {
+      cancelPendingRequests()
+    }
   }, [])
 
   return (
