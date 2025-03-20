@@ -205,8 +205,22 @@ const NoteList = () => {
     resetConflictResolutionModal()
   }
 
-  const retryUpdate = (note: Note) => {
-    handleUpdate(note)
+  const retryUpdate = async (note: Note) => {
+    const response = await findNote(note.id)
+
+    if (response.status === RESPONSE_TYPE.SUCCESS) {
+      const currentNote = response.data as Note
+      handleUpdate({ ...note, updated_at: currentNote.updated_at })
+    }
+
+    if (response.status === RESPONSE_TYPE.ERROR) {
+      toast(response.message, { type: 'warning' })
+    }
+
+    if (response.status === RESPONSE_TYPE.EXCEPTION) {
+      toast(response.message, { type: 'error' })
+    }
+
     resetConflictResolutionModal()
   }
 
