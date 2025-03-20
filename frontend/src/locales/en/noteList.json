@@ -16,13 +16,22 @@
     "notesListTitle": "Your notes",
     "loadingNotes": "Loading notes...",
     "updatedOf": "Update of \"{{title}}\"",
-    "sessionClosed": "You have successfully logged out! We are redirecting you to the login page"
+    "sessionClosed": "You have successfully logged out! We are redirecting you to the login page",
+    "noteReloaded": "Note successfully reloaded!",
+    "serverVersion": "Cloud version",
+    "localVersion": "Version on your device",
+    "mergeChanges": "Merge changes",
+    "updateConflict": "Update conflict",
+    "recentNoteModification": "The note has been recently modified. What action would you like to take?"
   },
   "buttons": {
     "addNote": "Add Note",
     "updateNote": "Update",
     "deleteNote": "Delete",
     "yesContinue": "Yes! Continue",
+    "reloadNote": "Reload Note",
+    "retryUpdate": "Retry Update",
+    "mergeChanges": "Merge changes",
     "cancel": "Cancel",
     "signOut": "Log out"
   },

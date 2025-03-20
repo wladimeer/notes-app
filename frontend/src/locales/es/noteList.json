@@ -16,13 +16,22 @@
     "notesListTitle": "Tus notas",
     "loadingNotes": "Cargando notas...",
     "updatedOf": "Actualización de \"{{title}}\"",
-    "sessionClosed": "¡Has cerrado sesión con éxito! Te estamos redireccionando al inicio de sesión"
+    "sessionClosed": "¡Has cerrado sesión con éxito! Te estamos redireccionando al inicio de sesión",
+    "noteReloaded": "¡Nota recargada exitosamente!",
+    "serverVersion": "Versión en la nube",
+    "localVersion": "Versión en tu dispositivo",
+    "mergeChanges": "Fusionar cambios",
+    "updateConflict": "Conflicto de actualización",
+    "recentNoteModification": "La nota ha sido modificada recientemente. ¿Qué acción deseas tomar?"
   },
   "buttons": {
     "addNote": "Agregar nota",
     "updateNote": "Actualizar",
     "deleteNote": "Eliminar",
     "yesContinue": "¡Sí! Continuar",
+    "reloadNote": "Recargar Nota",
+    "retryUpdate": "Reintentar Actualización",
+    "mergeChanges": "Fusionar cambios",
     "cancel": "Cancelar",
     "signOut": "Cerrar sesión"
   },

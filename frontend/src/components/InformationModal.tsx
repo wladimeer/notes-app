@@ -1,6 +1,7 @@
 import { Modal, Box, Typography, Stack, CircularProgress } from '@mui/material'
 import type InformationModalProps from '../interfaces/information-modal-props.interface'
 import type InformationModal from '../interfaces/information-modal.interface'
+import type { SyntheticEvent } from 'react'
 
 const style = {
   top: '50%',
@@ -18,8 +19,10 @@ const style = {
 const InformationModal = ({ informationModal, resetInformationModal }: InformationModalProps) => {
   const { title, visible, loading, message } = informationModal
 
-  const handleOnClose = () => {
-    resetInformationModal()
+  const handleOnClose = (_: SyntheticEvent, reason: string) => {
+    if (reason !== 'backdropClick') {
+      resetInformationModal()
+    }
   }
 
   return (

@@ -3,9 +3,10 @@ import type ActionModal from './action-modal.interface'
 import type Note from './note.interface'
 
 interface ModalForm extends Omit<ActionModal, 'onConfirm'> {
-  onConfirm: (note: Note) => void
+  onConfirm: (note?: Note) => void
   translation: TFunction
   note: Note
+  serverNote?: Note
 }
 
 export default ModalForm

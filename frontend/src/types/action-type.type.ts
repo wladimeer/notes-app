@@ -11,6 +11,10 @@ type ActionType =
   | { type: 'SET_ON_CONFIRM'; payload: () => void }
   | { type: 'SET_TRANSLATION'; payload: TFunction }
   | { type: 'SET_NOTE'; payload: Note }
+  | { type: 'SET_SERVER_NOTE'; payload: Note }
+  | { type: 'SET_ON_RELOAD'; payload: () => void }
+  | { type: 'SET_ON_MERGE'; payload: () => void }
+  | { type: 'SET_ON_RETRY'; payload: () => void }
   | { type: 'SET_RESET' }
 
 export default ActionType

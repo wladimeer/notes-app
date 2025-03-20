@@ -4,9 +4,11 @@ import type Note from '../../interfaces/note.interface'
 import { RESPONSE_TYPE } from '../../constants/response'
 import InformationModal from '../../components/InformationModal'
 import useInformationModal from '../../hooks/useInformationModal'
+import useConflictResolutionModal from '../../hooks/useConflictResolutionModal'
 import { Card, CardContent, Container, Typography, Stack, List } from '@mui/material'
 import { TextField, Button, ListItemText, ListSubheader, ListItem } from '@mui/material'
-import { getNotes, createNote, deleteNote, updateNote } from '../../services/note'
+import { getNotes, createNote, deleteNote, updateNote, findNote } from '../../services/note'
+import ConflictResolutionModal from '../../components/ConflictResolutionModal'
 import { getFormNoteSchema } from '../../utils/validationsSchemas'
 import type NoteForm from '../../interfaces/note-form.interface'
 import useActionModal from '../../hooks/useActionModal'
@@ -32,6 +34,8 @@ const style = {
 
 const NoteList = () => {
   const [translation] = useTranslation(PAGE_KEY.NOTE_PAGE)
+  const { conflictResolutionModal, setConflictResolutionModal, resetConflictResolutionModal } =
+    useConflictResolutionModal()
   const { informationModal, setInformationModal, resetInformationModal } = useInformationModal()
   const { actionModal, setActionModal, resetActionModal } = useActionModal()
   const { modalForm, setModalForm, resetModalForm } = useModalForm()
@@ -71,7 +75,11 @@ const NoteList = () => {
       visible: true,
       confirm: translation('buttons.updateNote'),
       cancel: translation('buttons.cancel'),
-      onConfirm: (updatedNote: Note) => handleUpdate(updatedNote),
+      onConfirm: (updatedNote?: Note) => {
+        if (updatedNote) {
+          handleUpdate(updatedNote)
+        }
+      },
       translation,
       note
     })
@@ -102,6 +110,17 @@ const NoteList = () => {
 
     if (response.status === RESPONSE_TYPE.EXCEPTION) {
       toast(response.message, { type: 'error' })
+    }
+
+    if (response.status === RESPONSE_TYPE.CONFLICT) {
+      setConflictResolutionModal({
+        title: translation('indicators.updateConflict'),
+        visible: true,
+        translation: translation,
+        onReload: () => reloadNote(note),
+        onMerge: () => mergeChanges(note),
+        onRetry: () => retryUpdate(note)
+      })
     }
   }
 
@@ -149,6 +168,72 @@ const NoteList = () => {
     }
   }
 
+  const reloadNote = async (note: Note) => {
+    const response = await findNote(note.id)
+
+    if (response.status === RESPONSE_TYPE.SUCCESS) {
+      const note = response.data as Note
+
+      loadNotes()
+
+      setModalForm({
+        title: translation('indicators.updatedOf', { title: note.title }),
+        visible: true,
+        confirm: translation('buttons.updateNote'),
+        cancel: translation('buttons.cancel'),
+        onConfirm: (updatedNote?: Note) => {
+          if (updatedNote) {
+            handleUpdate(updatedNote)
+          }
+        },
+        translation,
+        note
+      })
+
+      toast(translation('indicators.noteReloaded'), { type: 'info' })
+    }
+
+    if (response.status === RESPONSE_TYPE.ERROR) {
+      toast(response.message, { type: 'warning' })
+    }
+
+    if (response.status === RESPONSE_TYPE.EXCEPTION) {
+      toast(response.message, { type: 'error' })
+    }
+
+    resetConflictResolutionModal()
+  }
+
+  const retryUpdate = (note: Note) => {
+    handleUpdate(note)
+    resetConflictResolutionModal()
+  }
+
+  const mergeChanges = async (note: Note) => {
+    const response = await findNote(note.id)
+
+    if (response.status === RESPONSE_TYPE.SUCCESS) {
+      const serverNote = response.data as Note
+
+      setModalForm({
+        title: translation('indicators.mergeChanges'),
+        visible: true,
+        confirm: translation('buttons.updateNote'),
+        cancel: translation('buttons.cancel'),
+        onConfirm: (mergedNote?: Note) => {
+          if (mergedNote) {
+            handleUpdate(mergedNote)
+          }
+        },
+        translation,
+        note: note,
+        serverNote: serverNote
+      })
+    }
+
+    resetConflictResolutionModal()
+  }
+
   const loadNotes = async () => {
     const response = await getNotes()
 
@@ -172,9 +257,11 @@ const NoteList = () => {
 
   return (
     <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center' }}>
+      <ConflictResolutionModal {...{ conflictResolutionModal, resetConflictResolutionModal }} />
       <InformationModal {...{ informationModal, resetInformationModal }} />
       <ActionModal {...{ actionModal, resetActionModal }} />
       <ModalForm {...{ modalForm, resetModalForm }} />
+
       <ToastContainer />
 
       <Card
@@ -261,7 +348,7 @@ const NoteList = () => {
                     onBlur={handleBlur}
                     variant="standard"
                     name="content"
-                    type="content"
+                    type="text"
                     tabIndex={2}
                   />
 

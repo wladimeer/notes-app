@@ -40,6 +40,8 @@ const useModalForm = () => {
         return { ...state, translation: action.payload }
       case 'SET_NOTE':
         return { ...state, note: action.payload }
+      case 'SET_SERVER_NOTE':
+        return { ...state, serverNote: action.payload ?? state.serverNote }
       case 'SET_RESET':
         return initialState
       default:
@@ -57,6 +59,10 @@ const useModalForm = () => {
     dispatch({ type: 'SET_ON_CONFIRM', payload: payload.onConfirm })
     dispatch({ type: 'SET_TRANSLATION', payload: payload.translation })
     dispatch({ type: 'SET_NOTE', payload: payload.note })
+
+    if (payload.serverNote !== undefined) {
+      dispatch({ type: 'SET_SERVER_NOTE', payload: payload.serverNote })
+    }
   }
 
   const resetModalForm = () => {
