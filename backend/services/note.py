@@ -1,16 +1,15 @@
 from models.note import Note
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from schemas.note import NoteCreate, NoteUpdate
 from datetime import datetime
 
 
-def get_notes_for_user(db: Session, user_id: int):
-    db_notes = (
-        db.query(Note)
-        .filter(Note.user_id == user_id)
-        .order_by(Note.created_at.desc())
-        .all()
+async def get_notes_for_user(db: AsyncSession, user_id: int):
+    db_notes = await db.execute(
+        select(Note).where(Note.user_id == user_id).order_by(Note.created_at.desc())
     )
+    db_notes = db_notes.scalars().all()
 
     notes_data = [
         {
@@ -35,7 +34,7 @@ def get_notes_for_user(db: Session, user_id: int):
     return notes_data
 
 
-def create_note_for_user(db: Session, note: NoteCreate, user_id: int):
+async def create_note_for_user(db: AsyncSession, note: NoteCreate, user_id: int):
     db_note = Note(
         title=note.title,
         content=note.content,
@@ -45,14 +44,17 @@ def create_note_for_user(db: Session, note: NoteCreate, user_id: int):
     )
 
     db.add(db_note)
-    db.commit()
-    db.refresh(db_note)
+    await db.commit()
+    await db.refresh(db_note)
 
     return db_note
 
 
-def find_note_by_id(db: Session, user_id: int, note_id: int):
-    db_note = db.query(Note).filter(Note.user_id == user_id, Note.id == note_id).first()
+async def find_note_by_id(db: AsyncSession, user_id: int, note_id: int):
+    db_note = await db.execute(
+        select(Note).where(Note.user_id == user_id, Note.id == note_id)
+    )
+    db_note = db_note.scalars().first()
 
     if db_note is None:
         return None
@@ -76,13 +78,13 @@ def find_note_by_id(db: Session, user_id: int, note_id: int):
     return note_data
 
 
-def update_note_for_user(db: Session, user_id: int, note_id: int, note: NoteUpdate):
-    db_note = (
-        db.query(Note)
-        .filter(Note.user_id == user_id, Note.id == note_id)
-        .with_for_update()
-        .first()
+async def update_note_for_user(
+    db: AsyncSession, user_id: int, note_id: int, note: NoteUpdate
+):
+    db_note = await db.execute(
+        select(Note).filter(Note.id == note_id, Note.user_id == user_id)
     )
+    db_note = db_note.scalar_one_or_none()
 
     if db_note is None:
         return None
@@ -93,27 +95,25 @@ def update_note_for_user(db: Session, user_id: int, note_id: int, note: NoteUpda
     if note.content:
         db_note.content = note.content
 
-    if note.title or note.content:
-        db_note.updated_at = datetime.now()
+    db_note.updated_at = datetime.now()
 
-    db.commit()
-    db.refresh(db_note)
+    db.add(db_note)
+    await db.commit()
+    await db.refresh(db_note)
 
     return db_note
 
 
-def delete_note_for_user(db: Session, user_id: int, note_id: int):
-    db_note = (
-        db.query(Note)
-        .filter(Note.user_id == user_id, Note.id == note_id)
-        .with_for_update()
-        .first()
+async def delete_note_for_user(db: AsyncSession, user_id: int, note_id: int):
+    db_note = await db.execute(
+        select(Note).where(Note.user_id == user_id, Note.id == note_id)
     )
+    db_note = db_note.scalars().first()
 
     if db_note is None:
         return None
 
-    db.delete(db_note)
-    db.commit()
+    await db.delete(db_note)
+    await db.commit()
 
     return db_note

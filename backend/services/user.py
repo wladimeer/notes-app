@@ -1,11 +1,13 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from models.user import User
 from schemas.user import UserBase
 from utils.helpers import hash_value
 
 
-def register_user(db: Session, user: UserBase):
-    db_user = db.query(User).filter(User.username == user.username).first()
+async def register_user(db: AsyncSession, user: UserBase):
+    db_user = await db.execute(select(User).filter(User.username == user.username))
+    db_user = db_user.scalar_one_or_none()
 
     if db_user:
         return None
@@ -18,11 +20,12 @@ def register_user(db: Session, user: UserBase):
     )
 
     db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    await db.commit()
+    await db.refresh(db_user)
 
     return db_user
 
 
-def get_user_by_username(db: Session, username: str):
-    return db.query(User).filter(User.username == username).first()
+async def get_user_by_username(db: AsyncSession, username: str):
+    db_user = await db.execute(select(User).filter(User.username == username))
+    return db_user.scalar_one_or_none()

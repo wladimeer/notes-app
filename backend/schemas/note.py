@@ -21,3 +21,4 @@ class NoteCreate(NoteBase):
 class NoteUpdate(NoteBase):
     title: Optional[str] = None
     content: Optional[str] = None
+    updated_at: Optional[datetime] = Field(default_factory=datetime.now)

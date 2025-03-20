@@ -2,7 +2,7 @@ from schemas.user import UserBase
 from fastapi import APIRouter, Depends, Response, status
 from fastapi.responses import JSONResponse
 import utils.constants as constants
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_db
 from services.user import register_user, get_user_by_username
 from utils.helpers import check_value
@@ -13,9 +13,9 @@ router = APIRouter(prefix=constants.AUTH_PREFIX, tags=[constants.AUTH_TAG])
 
 
 @router.post(constants.USER_REGISTER_ENDPOINT)
-async def register(user: UserBase, db: Session = Depends(get_db)):
+async def register(user: UserBase, db: AsyncSession = Depends(get_db)):
     try:
-        db_user = register_user(db, user)
+        db_user = await register_user(db, user)
 
         if db_user is None:
             return JSONResponse(
@@ -28,8 +28,8 @@ async def register(user: UserBase, db: Session = Depends(get_db)):
             content={"message": constants.USER_REGISTERED},
         )
 
-    except:
-        db.rollback()
+    except Exception:
+        await db.rollback()
 
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -38,8 +38,8 @@ async def register(user: UserBase, db: Session = Depends(get_db)):
 
 
 @router.post(constants.USER_LOGIN_ENDPOINT)
-async def login(user: UserBase, db: Session = Depends(get_db)):
-    db_user = get_user_by_username(db, user.username)
+async def login(user: UserBase, db: AsyncSession = Depends(get_db)):
+    db_user = await get_user_by_username(db, user.username)
 
     if db_user is None:
         return JSONResponse(

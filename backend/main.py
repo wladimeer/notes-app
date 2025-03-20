@@ -112,7 +112,9 @@ app.include_router(note_router)
 app.include_router(auth_router)
 
 
-init_db()
+@app.on_event("startup")
+async def startup_event():
+    await init_db()
 
 
 @app.get(constants.ROOT_PATH)

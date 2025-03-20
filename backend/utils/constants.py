@@ -22,11 +22,11 @@ USER_LOGGED_OUT = "¡Has cerrado sesión con éxito!"
 # Note constants
 DATA_OBTAINED = "Los datos se han obtenido correctamente. ¡Todo listo!"
 NOTE_REGISTERED = "¡Tu nota ha sido registrada correctamente!"
-NOTE_DOES_NOT_EXIST = "Lo sentimos, no encontramos esa nota"
+NOTE_DOES_NOT_EXIST = "Lo sentimos, no pudimos encontrar esa nota. Puede que no exista o que se haya eliminado recientemente. Actualice la página para ver la lista de notas disponibles e inténtelo de nuevo"
 NOTE_UPDATED = "¡Tu nota ha sido actualizada exitosamente!"
 NOTE_DELETED = "¡La nota ha sido eliminada con éxito!"
-NOTE_UPDATE_CONCURRENCY_ERROR = "Hubo un problema al intentar actualizar la nota. Es posible que la nota haya sido modificada recientemente. Por favor, intenta nuevamente"
-NOTE_DELETE_CONCURRENCY_ERROR = "Hubo un problema al intentar eliminar la nota. Es posible que la nota ya haya sido eliminada. Intenta nuevamente"
+NOTE_UPDATE_CONCURRENCY_ERROR = "Hubo un problema al intentar actualizar la nota. Es posible que se haya modificado recientemente. Actualice la página para ver la versión actualizada"
+NOTE_DELETE_CONCURRENCY_ERROR = "Hubo un problema al intentar eliminar la nota. Es posible que ya se haya eliminado. Inténtelo de nuevo o actualice la página para ver la lista de notas disponibles"
 
 # Error constants
 EXCEPTION_MESSAGE = "Algo salió mal. Intenta nuevamente en unos minutos"
